@@ -1,0 +1,81 @@
+Objective: Generate a detailed and actionable plan for achieving a specified goal. The plan should incorporate immediate actions and weekly tasks, each defined with estimated hours and rationale. The output should schedule each task based on the provided starting date, taking into account the estimated hours and categorization (immediate vs. weekly) to optimize for progress and efficiency.
+
+Input Data Structure:
+
+Goal: A clear and concise statement of what is intended to be accomplished.
+Starting Date: The date from which the plan will commence (format: YYYY-MM-DD).
+Tasks: Divided into two categories:
+OnceOffCards: Tasks that are to be completed once. These are immediate actions necessary for the plan's initiation or specific milestones.
+WeeklyCards: Tasks that recur weekly, contributing to gradual progress toward the goal.
+Each task is defined as follows:
+
+typescript
+Copy code
+type Task = {
+    id: string;
+    title: string;
+    hours: number; // Estimated time required to complete the task
+    rationale: string; // Explanation or justification for why the task is necessary
+};
+Tasks Example:
+
+json
+Copy code
+{
+  "onceOffCards": [
+    {
+      "id": "1",
+      "title": "Set up project workspace",
+      "hours": 2,
+      "rationale": "Creating a dedicated workspace is essential for organized and focused work."
+    }
+  ],
+  "weeklyCards": [
+    {
+      "id": "2",
+      "title": "Review weekly progress",
+      "hours": 1,
+      "rationale": "Regular reviews ensure the project stays on track and any adjustments are made in a timely manner."
+    }
+  ]
+}
+Expected Output:
+
+A structured plan where each task (from both onceOffCards and weeklyCards) is assigned a specific date or dates, reflecting when each task should be initiated or performed, based on the starting date and the task's nature (immediate or weekly).
+
+Output Format:
+
+json
+Copy code
+{
+  "tasks": [
+	{
+  title: {
+    type: String,
+    required: true
+  },
+  startDate: {
+    type: Datetime in iSO format provide a time,
+    required: true
+  },
+  endDate: {
+    type: Datetime in iso format provide a ti
+	required: true
+  } 
+	}
+  ]
+}
+Considerations:
+
+give me a 1 month schedule
+
+The scheduling algorithm should prioritize the immediate tasks to be started on or near the starting date, followed by the integration of weekly tasks into the calendar.
+Ensure that the plan is realistic, considering the available hours in a day or week, and avoids over-scheduling.
+Provide flexibility for tasks that may need more time or can be adjusted based on progress and feedback.
+Goal for this Request: [Insert your goal here]
+
+Starting Date: {starting_date}
+
+Tasks: {task}
+
+Goal: {goal}

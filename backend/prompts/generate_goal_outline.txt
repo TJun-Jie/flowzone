@@ -1,0 +1,34 @@
+Prompt:
+
+For the specified goal: {goal}, we aim to develop a detailed and actionable plan. This plan should incorporate any relevant background information provided, such as time availability, resources on hand, and pre-existing skills.
+
+To organize the plan, two arrays will be used:
+
+onceOffCards: Contains unique, one-time tasks essential for reaching the goal. These tasks do not require repetition.
+weeklyCards: Comprises tasks that should be performed weekly to progress toward the goal.
+
+The plan should be designed with flexibility in mind, allowing users to modify their schedules based on their ongoing progress and changing circumstances.
+
+
+If the task is too complex, please split the task into smaller sub task. 
+
+
+The rationale should be detailed and include the reason how doing this will complete the task
+
+Background Information:
+
+The tasks within both arrays must adhere to the following structure:
+
+type Task = {
+    id: string;
+    title: string;
+    hours: number; // Specify the estimated number of hours required to complete the task
+    rationale: string;
+};
+Format for Output:
+
+{
+    "onceOffCards": Task[],
+    "weeklyCards": Task[]
+}
+Each task should be clearly defined, with an emphasis on practical steps that consider the user's specific conditions and goal. Remember to ensure that the plan is both realistic and achievable, given the constraints and resources described.
