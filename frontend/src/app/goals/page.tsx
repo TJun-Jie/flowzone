@@ -28,8 +28,7 @@ const GoalsPage: React.FC<GoalsPageProps> = () => {
   const [goalInput, setGoalInput] = React.useState("");
   const goals = useQuery(api.goals.get);
 
-
-//   const { user } = useUser();
+  //   const { user } = useUser();
 
   const [weeklyCards, setWeeklyCards] = useState<Card[]>([]);
   const [onceOffCards, setOnceOffCards] = useState<Card[]>([]);
@@ -106,7 +105,7 @@ const GoalsPage: React.FC<GoalsPageProps> = () => {
 
   const createPlan = async () => {
     const planData = {
-    //   userId: user?.id, // This should be dynamically set, perhaps from user session data
+      //   userId: user?.id, // This should be dynamically set, perhaps from user session data
       goalName: goalInput,
       tasks: [...onceOffCards, ...weeklyCards], // Assuming this is your state for tasks
       // events: weeklyCards, // Assuming this is your state for weekly tasks/events
@@ -150,9 +149,7 @@ const GoalsPage: React.FC<GoalsPageProps> = () => {
         <p className="text-lg text-white mb-8">
           What would you like to accomplish today
         </p>
-        {goals?.map(({ _id, text }) => (
-        <div key={_id}>{text}</div>
-      ))}
+
         <div className="max-w-xl mx-auto p-8 bg-white rounded-lg shadow-lg">
           <div className="flex flex-col text-left">
             <div className="block mb-2 ml-1 text-sm text-left w-full text-gray-900 dark:text-gray-300 self-center font-bold ">

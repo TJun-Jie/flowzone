@@ -11,15 +11,17 @@ interface DailyMetrics {
 }
 
 interface wins {
-  id: number;
-  date: Date;
+  id: string;
+  dailyMetricId: string;
+  userId: string;
   win: string;
 }
 
 interface losses {
-  id: number;
-  date: Date;
-  loss: string;
+  id: string;
+  dailyMetricId: string;
+  userId: string;
+  loses: string;
 }
 
 export enum RatingOfDay {
