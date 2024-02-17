@@ -8,9 +8,9 @@ import {
   SignInButton,
   UserButton,
   auth,
-  useAuth,
 } from "@clerk/nextjs";
-import ConvexClientProvider from "./ConvexClientProvider"; // Import ConvexClientProvider from the second file
+import ConvexClientProvider from "./ConvexClientProvider";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,9 +27,9 @@ export default function RootLayout({
   const { userId } = auth();
   return (
     <html lang="en">
-      <body className={`w-screen h-screen ${inter.className}`}> {/* Apply className from Inter font */}
-        <ConvexClientProvider> {/* Wrap existing content with ConvexClientProvider */}
-          <ClerkProvider>
+      <body className={`w-screen h-screen ${inter.className}`}>
+        <ConvexClientProvider>
+          <ClerkProvider publishableKey="pk_test_dHJ1c3RpbmctbW9ua2Zpc2gtNi5jbGVyay5hY2NvdW50cy5kZXYk">
             <ClerkLoading>
               <div className="w-full h-full flex justify-center items-center bg-[#fff]">
                 <div
