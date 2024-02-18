@@ -174,7 +174,7 @@ const DayViewCalendar: React.FC<DayViewCalendarProps> = ({
   //     scrollInstance.scroll({ y: 8 * 60 }, 0); // Scroll to 8am
   //   }
   // }, []);
-  const [showChart, setShowChart] = useState(false);
+  const [showChart, setShowChart] = useState(true);
   return (
     <div className="flex h-full w-full flex-col justify-center items-center bg-white overflow-hidden">
       <h1>Day View Calendar</h1>
