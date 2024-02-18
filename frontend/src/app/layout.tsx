@@ -27,8 +27,7 @@ export default function RootLayout({
   const { userId } = auth();
   return (
     <html lang="en">
-      <body className={`w-screen h-screen ${inter.className}`}>
-        <ConvexClientProvider>
+      <body className={`w-screen h-screen ${inter.className} bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400`}>        <ConvexClientProvider>
           <ClerkLoading>
             <div className="w-full h-full flex justify-center items-center bg-[#fff]">
               <div
