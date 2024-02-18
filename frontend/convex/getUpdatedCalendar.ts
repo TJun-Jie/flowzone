@@ -196,33 +196,50 @@ export const amendActionItems = action({
     
     `;
 
-    const context = "1. user needs more physical activities.";
-  const system_message = `
-  Given the following suggestions: ${context}
-    CREATE, DELETE OR UPDATE THE USER'S CALENDAR HERE: ${JSON.stringify(currentActionItems)}
-  `;
+    const context = "1. user needs more physical activities. 2. user is too stressed out, he needs some personal time";
   console.log("here2");
-  const extract = await togetherai.chat.completions.create({
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
+    });
+    console.log(`the context is ${context}`);
+    const prompt = `USER'S CURRENT CALENDAR: ${JSON.stringify(currentActionItems)}`;
+    const response = await openai.chat.completions.create({
+        messages: [
+          {
+            role: "system",
+            content: `MODIFY CURRENT USER'S CALENDAR STRICTLY BASED ON ${context}, You are to STRICTLY ONLY OUPUT JSON objects. RETURN ALL EVENTS INCLUDING THE ORIGINAL ONES. DO NOT DIFFERENTIATE OLD OR NEW EVENTS. Respond only as a JSON document, and strictly conform to the following typescript schema, paying attention to comments as requirements: ${jsonSchema}}. `,
+          },
+          { role: "user", content: prompt },
+        ],
+        temperature: 0.8,
+        model: "gpt-3.5-turbo"})
+        console.log(response);
+        console.log(response.choices[0].message.content);
+        const json = JSON.parse(response.choices[0].message.content || "");
+        console.log(json);
+        return response.choices[0].message.content;
+        /**
+   * const extract = await togetherai.chat.completions.create({
     "temperature": 0.6,
     messages: [
       {
         role: 'system',
         content:
-        "CREATE, DELETE OR SHIFT EVENTS IN THE CURRENT USER'S CALENDAR",
+        `CREATE, DELETE OR SHIFT EVENTS IN THE CURRENT USER'S CALENDAR BASED ON ${context}, RETURN ALL EVENTS INCLUDING THE ORIGINAL ONES AND NEW ONES`,
       },
       {
         role: 'user',
         content: system_message,
       },
     ],
-    model: "mistralai/Mistral-7B-Instruct-v0.1",
+    model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
     // @ts-ignore
     response_format: { type: 'json_object', schema: jsonSchema },
   });
   console.log("here3");
   const output = JSON.parse(extract.choices[0].message.content!);
   console.log(output);
-  return output;
+  return output;*/
 }});
 
 //"model": "meta-llama/Llama-2-13b-chat-hf"
