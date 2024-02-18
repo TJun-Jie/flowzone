@@ -5,6 +5,7 @@ import InputField from './InputField';
 import Insights from './Insights';
 import { useMutation } from 'convex/react';
 import { api } from '../../../../convex/_generated/api';
+import LinearProgress from '@mui/material/LinearProgress';
 
 export const Form = () => {
   const [starRating, setStarRating] = useState(0);
@@ -12,6 +13,7 @@ export const Form = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const createUserInput = useMutation(api.dailyMetrics.createDailyMetrics);
   const [terraData, setTerraData] = useState(null);
+  const [showProgress, setShowProgress] = useState(false);
 
   const handleValueChange = (value: string[]) => {
     setInputValue(value);
@@ -23,14 +25,19 @@ export const Form = () => {
     createUserInput({
       date: new Date().toISOString(),
       ratingOfDay: starRating,
-      wins: inputValue[0].split('\n').filter((win) => win !== ''),
-      losses: inputValue[1].split('\n').filter((loss) => loss !== ''),
+      wins: inputValue[0].split('\n').map(line => line.replace(/^\s*•\s*/, '').trim()),
+      losses: inputValue[1].split('\n').map(line => line.replace(/^\s*•\s*/, '').trim()),
       weight: 160,
       actionItemsCompleted: [],
       sleepHours: 7
     });
-    setFormSubmitted(true);
-  }
+    setShowProgress(true);
+    setTimeout(() => {
+      setShowProgress(false);
+      setFormSubmitted(true);
+    }, 800);
+  };
+
 
   const formVariants = {
     initial: {
@@ -96,17 +103,18 @@ export const Form = () => {
                 Submit
               </button>
             </div>
+            {showProgress && <div style={{marginTop: '8px'}}><LinearProgress /></div>}
           </motion.div>
         </div>
       ) : null}
       {formSubmitted && (
-        <div className="insights-container" style={{ width: '50%', marginLeft: '0', marginTop: '0' }}>
+        <div className="insights-container" style={{ width: '95%', marginLeft: '0', marginTop: '0' }}>
           <motion.div
             initial="initial"
             animate="in"
             variants={insightsVariants}
             transition={pageTransition}
-            className="flex justify-center" // Align the wins and losses horizontally and center them
+            className="flex justify-center" 
           >
             <Insights />
           </motion.div>

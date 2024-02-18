@@ -28,8 +28,8 @@ export default defineSchema({
       name: v.string(),
     }),
     notes: v.string(),
-    stress: v.array(v.id("stress")),
-    distractions: v.array(v.id("distractions")),
+    stress: v.array(v.string()),
+    distractions: v.array(v.string()),
   }),
 
   dailyMetrics: defineTable({

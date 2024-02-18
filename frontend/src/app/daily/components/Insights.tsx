@@ -1,28 +1,73 @@
-import React from 'react';
-import { useQuery } from "convex/react";
+import React, { useState } from 'react';
+import { useMutation, useQuery } from "convex/react";
 import { motion } from "framer-motion";
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/Icon';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { api } from '../../../../convex/_generated/api';
 
-// Define the structure of your insights as an array of strings
-interface InsightItem {
-  id: number;
-  content: string;
-}
 
 // Mock data for testing the UI, replace with your actual query
-const mockInsights: InsightItem[] = [
+const mockInsights: any = [
   {
     id: 1,
     content: "You're stressed between 2-4pm when you're having this activity, remember to take a break and unwind during these times."
   },
+];
+
+const mockActionableInsights: any = [
   {
-    id: 2,
-    content: "You're stressed between 2-4pm when you're having this activity, remember to take a break and unwind during these times."
+    "name": "Attend Time Management Workshop",
+    "priority": "High",
+    "dueDate": "2024-03-01",
+    "status": "Scheduled",
+    "isDone": false,
+    "projects": ["Personal Development"],
+    "startTime": "09:00",
+    "endTime": "12:00",
+    "location": {
+      "latitude": 40.7128,
+      "longitude": -74.0060,
+      "name": "Downtown Conference Center"
+    },
+    "notes": "Participating in a time management workshop to better allocate time for meals, exercise, and relaxation, ensuring a balanced approach to daily activities.",
+    "distractions": ["unnecessary_meetings", "prolonged_breaks"]
   },
-  // ... more insights
+  {
+    "name": "Complete Advanced Project Management Course",
+    "priority": "Medium",
+    "dueDate": "2024-04-15",
+    "status": "Not Started",
+    "isDone": false,
+    "projects": ["Skill Upgradation"],
+    "startTime": "18:00",
+    "endTime": "20:00",
+    "location": {
+      "latitude": 37.7749,
+      "longitude": -122.4194,
+      "name": "Online Platform"
+    },
+    "notes": "Enrolling in an advanced project management course to improve planning, execution, and delivery of projects. Goal is to consistently meet or exceed project timelines with efficient resource management.",
+    "distractions": ["inefficient_workflow", "lack_of_resources"]
+  },
+  {
+    "name": "Establish Regular Morning Exercise Routine Before Work",
+    "priority": "High",
+    "dueDate": "2024-02-28",
+    "status": "InProgress",
+    "isDone": false,
+    "projects": ["Health Improvement"],
+    "startTime": "06:30",
+    "endTime": "07:30",
+    "location": {
+      "latitude": 34.0522,
+      "longitude": -118.2437,
+      "name": "Local Gym"
+    },
+    "notes": "Committing to a daily morning exercise routine to enhance physical health, reduce stress, and increase energy levels throughout the day. This routine includes cardio, strength training, and flexibility exercises.",
+    "distractions": ["morning_lethargy", "postponement"]
+  }
 ];
 
 const Insights = () => {
@@ -39,7 +84,13 @@ const Insights = () => {
 
   // Replace with actual query in production
   // const insights = useQuery(api.getInsights);
-  const insights = { data: mockInsights, isLoading: false, error: null };
+  const [insights, setInsights] = useState(mockInsights);
+  const [actionableInsights, setActionableInsights] = useState(mockActionableInsights);
+  const addActionItem = useMutation(api.actionItems.createActionItem);
+
+  const handleReject = (name: string) => {
+    setActionableInsights((prevInsights: any[]) => prevInsights.filter(insight => insight.name !== name));
+  };
 
   return (
     <motion.div
@@ -54,10 +105,9 @@ const Insights = () => {
           <span role="img" aria-label="bulb" className="text-2xl">💡</span>
           <h2 className="text-xl font-bold ml-2">General Insights</h2>
         </div>
-        {insights.isLoading && <p>Loading...</p>}
-        {insights.data && (
+        {insights && (
           <div>
-            {insights.data.map((insight) => (
+            {insights.map((insight: any) => (
               <Paper key={insight.id} className="p-4 mb-4" elevation={2}>
                 <p>{insight.content}</p>
               </Paper>
@@ -68,19 +118,19 @@ const Insights = () => {
           <span role="img" aria-label="wrench" className="text-2xl">🔧</span>
           <h2 className="text-xl font-bold ml-2">Actionable Insights</h2>
         </div>
-        {/* Here we're repeating the same insights for actionable items, replace with your actual actionable insights */}
-        {insights.data && (
+        {actionableInsights && (
           <div>
-            {insights.data.map((insight) => (
-              <Paper key={insight.id} className="flex items-center justify-between p-4 mb-4" elevation={2}>
-                <p>{insight.content}</p>
-                <div className="flex">
-                <IconButton color="primary" aria-label="accept" onClick={() => console.log("Hi")}>
-                  <CheckCircleIcon />
-                </IconButton>
-                <IconButton color="secondary" aria-label="reject" onClick={() => console.log("Rejected")}>
-                  <CancelIcon />
-                </IconButton>
+            {actionableInsights.map((insight : any) => (
+              <Paper key={insight.name} className="flex flex-col items-start justify-between p-4 mb-4" elevation={2}>
+                <h2 style={{fontWeight: 600}}>{insight.name}</h2>
+                <p>{insight.notes}</p>
+                <div className="flex justify-end w-full">
+                  <IconButton color="primary" aria-label="accept" onClick={()=> addActionItem(insight)}>
+                    <CheckCircleIcon />
+                  </IconButton>
+                  <IconButton color="secondary" aria-label="reject" onClick={() => handleReject(insight.name)}>
+                    <CancelIcon />
+                  </IconButton>
                 </div>
               </Paper>
             ))}
