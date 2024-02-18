@@ -12,10 +12,11 @@ import {
   Title,
   Tooltip,
   Legend,
-} from "chart.js";
+} from "chart.js";  
 import { Line } from "react-chartjs-2";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import { useState } from 'react';
+import { Instance } from 'overlayscrollbars';
+import { useRef, useEffect, useState } from 'react';
 import Switch from '@mui/material/Switch';
 
 ChartJS.register(
@@ -101,7 +102,6 @@ export const ActionItemsCalendarView: React.FC<
   };
 
   console.log("actionItems", actionItems);
-  const [showChart, setShowChart] = useState(false);
 
   return (
     <div
@@ -110,17 +110,6 @@ export const ActionItemsCalendarView: React.FC<
     >
       {`${name} (${formatTime(startTime)} - ${formatTime(endTime)})`}
 
-      <div style={{}}>
-        <Switch
-          checked={showChart}
-          onChange={() => setShowChart(!showChart)}
-          name="showChart"
-          inputProps={{ 'aria-label': 'secondary checkbox' }}
-        />
-        <span>{showChart ? 'Hide Chart' : 'Show Chart'}</span>
-      </div>
-
-      {showChart && actionItems && actionItems.length > 0 && (
         <div
           className="line-chart-container"
           style={{
@@ -131,7 +120,7 @@ export const ActionItemsCalendarView: React.FC<
         >
           <Line options={options} data={data} />;
         </div>
-      )}
+      
     </div>
   );
 };
@@ -175,10 +164,27 @@ const DayViewCalendar: React.FC<DayViewCalendarProps> = ({
   events = sampleEvents,
 }) => {
   const actionItems = useQuery(api.actionItems.get);
+  const scrollRef = useRef<Instance>(null);
 
+  useEffect(() => {
+    if (scrollRef.current) {
+      const scrollInstance = scrollRef.current;
+      scrollInstance.scroll({ y: 8 * 60 }, 0); // Scroll to 8am
+    }
+  }, []);
+  const [showChart, setShowChart] = useState(false);
   return (
     <div className="flex h-full w-full flex-col justify-center items-center bg-white overflow-hidden">
       <h1>Day View Calendar</h1>
+      <div style={{ position: 'absolute', top: '60px', right: '50px', zIndex: 1000 }}>
+        <Switch
+          checked={showChart}
+          onChange={() => setShowChart(!showChart)}
+          name="showChart"
+          inputProps={{ 'aria-label': 'secondary checkbox' }}
+        />
+      <span style={{ color: 'black' }}>{showChart ? 'Hide Chart' : 'Show Chart'}</span>
+      </div>
       <div className=" flex flex-col w-full h-max px-10">
         <OverlayScrollbarsComponent className="w-full h-full ">
           <div className="h-[700px] w-full flex flex-col gap-[40px] relative ">
@@ -210,7 +216,7 @@ const DayViewCalendar: React.FC<DayViewCalendarProps> = ({
                 </div>
               );
             })}
-            {actionItems?.map(({ _id, name, startTime, endTime }, index) => {
+            {showChart && actionItems && actionItems.length > 0 && actionItems.map(({ _id, name, startTime, endTime }, index) => {
               return (
                 <ActionItemsCalendarView
                   key={_id}
