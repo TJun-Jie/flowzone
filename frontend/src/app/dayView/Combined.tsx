@@ -15,7 +15,8 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-
+import { useState } from 'react';
+import Switch from '@mui/material/Switch';
 
 ChartJS.register(
   CategoryScale,
@@ -103,6 +104,7 @@ export const ActionItemsCalendarView: React.FC<ActionItemsCalendarViewProps> = (
   };
 
   console.log("actionItems", actionItems);
+  const [showChart, setShowChart] = useState(false);
 
   return (
     <div
@@ -111,7 +113,17 @@ export const ActionItemsCalendarView: React.FC<ActionItemsCalendarViewProps> = (
     >
       {`${name} (${formatTime(startTime)} - ${formatTime(endTime)})`}
 
-      {actionItems && actionItems.length > 0 && (
+      <div style={{}}>
+        <Switch
+          checked={showChart}
+          onChange={() => setShowChart(!showChart)}
+          name="showChart"
+          inputProps={{ 'aria-label': 'secondary checkbox' }}
+        />
+        <span>{showChart ? 'Hide Chart' : 'Show Chart'}</span>
+      </div>
+
+      {showChart && actionItems && actionItems.length > 0 && (
         <div
           className="line-chart-container"
           style={{
