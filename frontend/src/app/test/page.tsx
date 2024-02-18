@@ -16,7 +16,7 @@ import { api } from "../../../convex/_generated/api";
 
 
 const CreateProjectPage = () => {
-  const performMyAction = useAction(api.analytics.getInsights);
+  const performMyAction = useAction(api.getUpdatedCalendar.amendActionItems);
   const handleClick = () => {
     performMyAction({ project: "Hello, are you there" });
   };

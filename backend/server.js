@@ -436,6 +436,155 @@ app.post("/consumeTerraWebhook", function (req, res) {
   res.sendStatus(200);
 });
 
+app.get('/getNewList', async (req, res) => {
+
+    const actionItemObj = z.object){
+        
+    }
+    const actionItemsSchema = z.object({
+        summary: z.string().describe('A summary of the voice note'),
+        actionItems: z
+          .array(z.string())
+          .describe('A list of action items from the voice note'),
+      });
+      const jsonSchema = zodToJsonSchema(actionItemsSchema, 'mySchema');
+      
+
+    const currentCalendarObj = `{
+        "events": [
+          {
+            "name": "Team Meeting",
+            "priority": "High",
+            "dueDate": "2023-03-15",
+            "status": "Scheduled",
+            "isDone": false,
+            "projects": ["Project Alpha"],
+            "startTime": "2023-03-15T09:00:00Z",
+            "endTime": "2023-03-15T10:00:00Z",
+            "location": {"name": "Conference Room A", "address": "123 Main St, Anytown, USA"},
+            "notes": "Discuss project milestones",
+            "stress": [{"stressIndex": 2, "time": "2023-03-15T09:05:00Z"}, {"stressIndex": 3, "time": "2023-03-15T09:25:00Z"}],
+            "distractions": ["Email"]
+          },
+          {
+            "name": "Client Review",
+            "priority": "Medium",
+            "dueDate": "2023-03-15",
+            "status": "Scheduled",
+            "isDone": false,
+            "projects": ["Project Beta"],
+            "startTime": "2023-03-15T10:30:00Z",
+            "endTime": "2023-03-15T11:30:00Z",
+            "location": {"name": "Conference Room B", "address": "124 Main St, Anytown, USA"},
+            "notes": "Quarterly review",
+            "stress": [],
+            "distractions": ["Phone calls"]
+          },
+          {
+            "name": "Design Sprint",
+            "priority": "Low",
+            "dueDate": "2023-03-15",
+            "status": "Planned",
+            "isDone": false,
+            "projects": ["Project Gamma"],
+            "startTime": "2023-03-15T12:00:00Z",
+            "endTime": "2023-03-15T13:00:00Z",
+            "location": {"name": "Design Lab", "address": "125 Creativity Ln, Anytown, USA"},
+            "notes": "Brainstorming session",
+            "stress": [],
+            "distractions": ["Slack messages"]
+          },
+          {
+            "name": "Tech Sync",
+            "priority": "High",
+            "dueDate": "2023-03-15",
+            "status": "Scheduled",
+            "isDone": false,
+            "projects": ["Project Delta"],
+            "startTime": "2023-03-15T13:30:00Z",
+            "endTime": "2023-03-15T14:30:00Z",
+            "location": {"name": "Tech Hub", "address": "126 Innovation Blvd, Anytown, USA"},
+            "notes": "Update on tech stack",
+            "stress": [],
+            "distractions": ["Email", "Slack messages"]
+          },
+          {
+            "name": "Project Planning",
+            "priority": "Medium",
+            "dueDate": "2023-03-15",
+            "status": "Scheduled",
+            "isDone": false,
+            "projects": ["Project Epsilon"],
+            "startTime": "2023-03-15T15:00:00Z",
+            "endTime": "2023-03-15T16:00:00Z",
+            "location": {"name": "Strategy Room", "address": "127 Strategy St, Anytown, USA"},
+            "notes": "Roadmap discussion",
+            "stress": [],
+            "distractions": ["Phone calls"]
+          },
+          {
+            "name": "Wrap-up Session",
+            "priority": "Low",
+            "dueDate": "2023-03-15",
+            "status": "Scheduled",
+            "isDone": false,
+            "projects": [],
+            "startTime": "2023-03-15T16:30:00Z",
+            "endTime": "2023-03-15T17:30:00Z",
+            "location": {"name": "Main Office", "address": "128 Main St, Anytown, USA"},
+            "notes": "Day's end summary",
+            "stress": [],
+            "distractions": []
+          }
+        ]
+      }
+      `
+
+    const context = "1. user has too packed of a timetabe, he needs more rest. 2. user needs more physical activities."
+    const prompt = `Given the following user contexts: ${context}
+    AMEND THE USER'S CALENDAR HERE: ${JSON.stringify(currentCalendarObj)}
+    
+    OUTPUT FORMAT SHOULD BE EXACTLY THE SAME AS THE INPUT FORMAT OF THE USER'S CALENDAR
+    OUTPUT ONLY THE CALENDAR OBJECT WITHOUT SAYING ANYTHING ELSE.
+    `;
+    
+    const headers = new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+    });
+    
+    const data = {
+        model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
+        max_tokens: 1024,
+        messages: [
+        {
+            role: 'system',
+            content: 'You are an AI assistant that output ONLY JSON IN THE FORMAT AS SPECIFIED'
+        },
+        {
+            role: 'user',
+            content: prompt
+        }
+        ]
+    };
+    
+    const options = {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(data)
+    };
+    
+    fetch(url, options)
+        .then(response => response.json())
+        .then(result => {
+        console.log(result.choices[0].message);
+        })
+        .catch(error => {
+        console.error('Error:', error);
+        });
+
+    }
+);
 app.listen(6002, () => {
   console.log("Server started on http://localhost:6002");
 });
