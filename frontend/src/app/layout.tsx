@@ -65,6 +65,9 @@ export default function RootLayout({
                     <a href="/daily" className="hover:text-gray-300">
                       Daily
                     </a>
+                    <a href="/search" className="hover:text-gray-300">
+                      Search
+                    </a>
                     <a href="/profile" className="hover:text-gray-300">
                       Profile
                     </a>
