@@ -49,11 +49,15 @@ export const getInsights = action({
       "losses": [
         {
           "time": "12:00",
-          "description": "Skipped lunch due to back-to-back meetings."
+          "description": "Skipped lunch due to insufficient time available"
         },
         {
           "time": "18:00",
-          "description": "Missed a call from a potential client."
+          "description": "Panic attack due to overstressed"
+        },
+        {
+          "time": "19:00",
+          "description": "Not enough time to exercise"
         }
       ],
       "action_items": [

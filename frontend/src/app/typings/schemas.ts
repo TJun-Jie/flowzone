@@ -3,25 +3,12 @@ interface DailyMetrics {
   date: Date;
   ratingOfDay: RatingOfDay;
   wins: string[];
-  losses: string[];
+  loses: string[];
   weight: number; // Assuming weight in kilograms for simplicity. Adjust the type as needed (e.g., string) if storing units.
   stressLevel: number; // Assuming a scale of 1-10 for simplicity.
   actionItemsCompleted: number; // This could represent a count, or could be replaced/extended with a relational link to specific action items.
   sleepHours: number;
-}
-
-interface wins {
-  id: string;
-  dailyMetricId: string;
-  userId: string;
-  win: string;
-}
-
-interface losses {
-  id: string;
-  dailyMetricId: string;
-  userId: string;
-  loses: string;
+  overall_day_rating: number;
 }
 
 export enum RatingOfDay {
