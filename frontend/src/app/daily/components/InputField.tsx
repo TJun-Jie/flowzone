@@ -1,4 +1,4 @@
-  import React, { useState } from 'react';
+  import React, { useEffect, useState } from 'react';
   import Box from '@mui/material/Box';
   import TextField from '@mui/material/TextField';
 
@@ -31,7 +31,7 @@
         value={value}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        sx={{ margin: 1, width: 'calc(50% - 8px)' }} // Adjusted width for side by side layout
+        sx={{ margin: 1, width: 'calc(95%)' }} // Adjusted width for side by side layout
       />
     );
   };
@@ -39,7 +39,11 @@
   const InputField = ({ onValueChange }: { onValueChange: (value: string[]) => void }) => {
     const [wins, setWins] = useState('• ');
     const [losses, setLosses] = useState('• ');
-
+  
+    useEffect(() => {
+      onValueChange([wins, losses]);
+    }, [wins, losses]);
+  
     return (
       <Box display="flex" justifyContent="space-between" sx={{ width: '100%', maxWidth: '800px', flexWrap: 'wrap' }}>
         <BulletPointsTextArea label="Wins" value={wins} onTextChange={setWins} />

@@ -438,9 +438,7 @@ app.post("/consumeTerraWebhook", function (req, res) {
 
 app.get('/getNewList', async (req, res) => {
 
-    const actionItemObj = z.object){
-        
-    }
+    const actionItemObj = z.object()
     const actionItemsSchema = z.object({
         summary: z.string().describe('A summary of the voice note'),
         actionItems: z

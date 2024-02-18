@@ -8,7 +8,7 @@ export default defineSchema({
     actionItemId: v.id("actionItems"),
   }),
 
-  stress: defineTable({
+  stresses: defineTable({
     level: v.number(),
     dateTime: v.string(),
     actionItemId: v.id("actionItems"),
@@ -22,21 +22,21 @@ export default defineSchema({
     projects: v.array(v.string()),
     startTime: v.string(),
     endTime: v.string(),
-    location: v.object({
-      latitude: v.number(),
-      longitude: v.number(),
-      name: v.string(),
-    }),
+    // location: v.object({
+    //   latitude: v.number(),
+    //   longitude: v.number(),
+    //   name: v.string(),
+    // }),
     notes: v.string(),
-    stress: v.array(v.id("stress")),
-    distractions: v.array(v.id("distractions")),
+    stress: v.array(v.number()),
+    distractions: v.array(v.string()),
   }),
 
   dailyMetrics: defineTable({
     date: v.string(),
     ratingOfDay: v.float64(), // Assuming RatingOfDay is an enum or similar, stored as string
-    wins: v.array(v.id("wins")),
-    loses: v.array(v.id("losses")),
+    wins: v.array(v.string()), // Change to v.array(v.string())
+    losses: v.array(v.string()), // Change to v.array(v.string())
     weight: v.number(),
     //actionItemsCompleted: v.array(v.id("actionItems")),
     sleepHours: v.float64(),

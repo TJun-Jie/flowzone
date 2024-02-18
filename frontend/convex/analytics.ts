@@ -7,20 +7,7 @@ import { action } from "./_generated/server";
 import { v } from "convex/values";
 
 // Defining the schema we want our data in.
-// const actionItemsSchema = z.object({
-//   name: z.string(),
-//   priority: z.object().optional(),
-//   dueDate: z.date(),
-//   status: z.enum(),
-//   isDone: z.boolean(),
-//   projects: z.array(z.string()),
-//   startTime: z.string().datetime(),
-//   endTime: z.string().datetime(),
-//   location : Location,
-//   notes: z.string();
-//   stress: { stressIndex number , time: datetime } [] ,
-//   distractions: z.array(z.string())
-// })
+
 // const jsonSchema = zodToJsonSchema(actionItemsSchema, 'mySchema');
 
 
@@ -144,10 +131,10 @@ export const getInsights = action({
         temperature: 0.8,
         model: "gpt-3.5-turbo"})
 
-        const json = JSON.parse(response.choices[0].message.content || "");
-        const jsonString = JSON.stringify(json);
-        console.log(jsonString);
-        return response.choices[0].message.content;
+  
+  const output = response.choices[0].message.content?.toString();
+  console.log(output);
+  return output;
 }});
 
 //"model": "meta-llama/Llama-2-13b-chat-hf"

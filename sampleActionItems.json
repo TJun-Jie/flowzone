@@ -1,0 +1,20 @@
+{
+  "name": "",
+  "dueDate": "2022-01-01T00:00:00Z",
+  "status": "inProgress",
+  "priority": "high",
+  "notes": "This task is urgent and needs to be completed as soon as possible.",
+  "projects": ["Project A", "Project B", "Project C"],
+  "startTime": "2021-12-01T00:00:00Z",
+  "endTime": "2022-01-01T00:00:00Z",
+  "isDone": false,
+  "location": {"latitude": 37.7749, "longitude": -122.4194},
+  "stress": [
+    {"time": "2021-12-01T00:00:00Z", "stressIndex": 5},
+    {"time": "2021-12-01T00:00:00Z", "stressIndex": 3},
+    {"time": "2021-12-01T00:00:00Z", "stressIndex": 4},
+    {"time": "2021-12-01T00:00:00Z", "stressIndex": 2},
+    {"time": "2021-12-01T00:00:00Z", "stressIndex": 1}
+  ],
+  "distractions": ["Social media", "Email", "Meetings"]
+}
