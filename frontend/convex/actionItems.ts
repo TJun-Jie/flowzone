@@ -10,6 +10,7 @@ export const get = query({
 
 export const createActionItem = mutation({
   args: {
+    actionItemId: v.string(),
     name: v.string(),
     priority: v.string(), // Assuming ActionItemPriority is an enum or similar, stored as string
     dueDate: v.string(),
@@ -29,6 +30,7 @@ export const createActionItem = mutation({
   },
   handler: async (ctx, args) => {
     const taskId = await ctx.db.insert("actionItems", {
+      actionItemId: args.actionItemId,
       name: args.name,
       priority: args.priority,
       dueDate: args.dueDate,

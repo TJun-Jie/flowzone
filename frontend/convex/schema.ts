@@ -11,9 +11,10 @@ export default defineSchema({
   stresses: defineTable({
     level: v.number(),
     dateTime: v.string(),
-    actionItemId: v.id("actionItems"),
+    actionItemId: v.string(),
   }),
   actionItems: defineTable({
+    actionItemId: v.string(),
     name: v.string(),
     priority: v.string(), // Assuming ActionItemPriority is an enum or similar, stored as string
     dueDate: v.string(),
@@ -38,7 +39,7 @@ export default defineSchema({
     wins: v.array(v.string()), // Change to v.array(v.string())
     losses: v.array(v.string()), // Change to v.array(v.string())
     weight: v.number(),
-    //actionItemsCompleted: v.array(v.id("actionItems")),
+    // actionItemsCompleted: v.array(v.id("actionItems")),
     sleepHours: v.float64(),
   }),
 

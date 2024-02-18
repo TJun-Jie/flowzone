@@ -18,7 +18,7 @@ export const createDailyMetrics = mutation({
       wins: args.wins,
       losses: args.losses,
       weight: args.weight,
-      actionItemsCompleted: args.actionItemsCompleted,
+      // actionItemsCompleted: args.actionItemsCompleted,
       sleepHours: args.sleepHours,
     });
   },
