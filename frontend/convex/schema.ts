@@ -4,24 +4,24 @@ import { v } from "convex/values";
 export default defineSchema({
   distractions: defineTable({
     name: v.string(),
-    dateTime: v.number(),
+    dateTime: v.string(),
     actionItemId: v.id("actionItems"),
   }),
 
   stress: defineTable({
     level: v.number(),
-    dateTime: v.number(),
+    dateTime: v.string(),
     actionItemId: v.id("actionItems"),
   }),
   actionItems: defineTable({
     name: v.string(),
     priority: v.string(), // Assuming ActionItemPriority is an enum or similar, stored as string
-    dueDate: v.number(),
+    dueDate: v.string(),
     status: v.string(), // Assuming ActionItemStatus is an enum or similar, stored as string
     isDone: v.boolean(),
     projects: v.array(v.string()),
-    startTime: v.number(),
-    endTime: v.number(),
+    startTime: v.string(),
+    endTime: v.string(),
     location: v.object({
       latitude: v.number(),
       longitude: v.number(),
@@ -33,8 +33,8 @@ export default defineSchema({
   }),
 
   dailyMetrics: defineTable({
-    date: v.float64(),
-    ratingOfDay: v.string(), // Assuming RatingOfDay is an enum or similar, stored as string
+    date: v.string(),
+    ratingOfDay: v.float64(), // Assuming RatingOfDay is an enum or similar, stored as string
     wins: v.array(v.id("wins")),
     losses: v.array(v.id("losses")),
     weight: v.number(),
