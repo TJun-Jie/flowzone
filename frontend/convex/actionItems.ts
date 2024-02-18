@@ -9,7 +9,7 @@ export const get = query({
 });
 
 export const createActionItem = mutation({
-  args: { 
+  args: {
     name: v.string(),
     priority: v.string(), // Assuming ActionItemPriority is an enum or similar, stored as string
     dueDate: v.string(),
@@ -28,7 +28,7 @@ export const createActionItem = mutation({
     distractions: v.array(v.string()),
   },
   handler: async (ctx, args) => {
-    const taskId = await ctx.db.insert("actionItems", { 
+    const taskId = await ctx.db.insert("actionItems", {
       name: args.name,
       priority: args.priority,
       dueDate: args.dueDate,
@@ -42,5 +42,40 @@ export const createActionItem = mutation({
       stress: args.stress,
       distractions: args.distractions,
     });
+  },
+});
+export const updateActionItemName = mutation({
+  args: { id: v.id("actionItems"), name: v.string() },
+  handler: async (ctx, args) => {
+    const { id } = args;
+    console.log(await ctx.db.get(id));
+    await ctx.db.patch(id, { name: args.name });
+  },
+});
+
+export const updateActionItemStartTime = mutation({
+  args: { id: v.id("actionItems"), startTime: v.string() },
+  handler: async (ctx, args) => {
+    const { id } = args;
+    console.log(await ctx.db.get(id));
+    await ctx.db.patch(id, { startTime: args.startTime });
+  },
+});
+
+export const updateActionItemEndTimes = mutation({
+  args: { id: v.id("actionItems"), endTime: v.string() },
+  handler: async (ctx, args) => {
+    const { id } = args;
+    console.log(await ctx.db.get(id));
+    await ctx.db.patch(id, { endTime: args.endTime });
+  },
+});
+
+export const updateCheckbox = mutation({
+  args: { id: v.id("actionItems"), isDone: v.boolean() },
+  handler: async (ctx, args) => {
+    const { id } = args;
+    console.log(await ctx.db.get(id));
+    await ctx.db.patch(id, { isDone: args.isDone });
   },
 });

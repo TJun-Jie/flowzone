@@ -58,8 +58,8 @@ const ActionItemsCalendarView: React.FC<ActionItemsCalendarViewProps> = ({
         display: false,
       },
       title: {
-        display: false,
-        text: "Chart.js Line Chart",
+        display: true,
+        text: `${name} (${formatTime(startTime)} - ${formatTime(endTime)})`,
       },
     },
   };
@@ -105,14 +105,14 @@ const ActionItemsCalendarView: React.FC<ActionItemsCalendarViewProps> = ({
       className="absolute bg-[#C4BCFD] p-2 mx-3 rounded-md"
       style={calculateEventStyle(formatTime(startTime), formatTime(endTime))}
     >
-      {`${name} (${formatTime(startTime)} - ${formatTime(endTime)})`}
+      {/* {`${name} (${formatTime(startTime)} - ${formatTime(endTime)})`} */}
 
       {actionItems && actionItems.length > 0 && (
         <div
           className="line-chart-container"
           style={{
-            width: "1000px",
-            height: "100px",
+            width: "calc(100% - 20px)",
+            height: "100%",
             position: "absolute",
           }}
         >

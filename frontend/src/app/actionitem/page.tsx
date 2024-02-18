@@ -1,6 +1,8 @@
-'use client'
+"use client";
 
+import { useQuery } from "convex/react";
 import MainComponent from "./components/mainComponent";
+import { api } from "../../../convex/_generated/api";
 
 export type ActionItemPage = {};
 

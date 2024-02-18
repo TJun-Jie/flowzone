@@ -11,6 +11,8 @@ import {
 } from "@clerk/nextjs";
 import ConvexClientProvider from "./ConvexClientProvider";
 import "./globals.css";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +29,10 @@ export default function RootLayout({
   const { userId } = auth();
   return (
     <html lang="en">
-      <body className={`w-screen h-screen ${inter.className} bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400`}>        <ConvexClientProvider>
+      <body
+        className={`w-screen h-screen ${inter.className} bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400`}
+      >
+        <ConvexClientProvider>
           <ClerkLoading>
             <div className="w-full h-full flex justify-center items-center bg-[#fff]">
               <div
@@ -45,7 +50,7 @@ export default function RootLayout({
               <nav className="bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 text-white px-4 py-3">
                 <div className="container mx-auto flex justify-between items-center">
                   <a href="/" className="text-lg font-semibold justify-start">
-                    Calendare
+                    flowzone
                   </a>
                   <div className="flex items-center space-x-4">
                     <a href="/" className="hover:text-gray-300">
