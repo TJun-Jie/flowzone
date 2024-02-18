@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
@@ -35,12 +35,9 @@ export type ActionItemsCalendarViewProps = {
   id: Id<"actionItems">;
 };
 
-export const ActionItemsCalendarView: React.FC<ActionItemsCalendarViewProps> = ({
-  startTime,
-  endTime,
-  name,
-  id,
-}) => {
+export const ActionItemsCalendarView: React.FC<
+  ActionItemsCalendarViewProps
+> = ({ startTime, endTime, name, id }) => {
   const hourHeight = 60; // Height of one hour block in pixels
 
   const actionItems = useQuery(api.stresses.getByActionItemId, {
@@ -180,9 +177,9 @@ const DayViewCalendar: React.FC<DayViewCalendarProps> = ({
   const actionItems = useQuery(api.actionItems.get);
 
   return (
-    <div className="flex w-screen h-screen flex-col justify-center items-center bg-white overflow-hidden">
+    <div className="flex h-full w-full flex-col justify-center items-center bg-white overflow-hidden">
       <h1>Day View Calendar</h1>
-      <div className=" flex flex-col w-full h-max px-10 fixed">
+      <div className=" flex flex-col w-full h-max px-10">
         <OverlayScrollbarsComponent className="w-full h-full ">
           <div className="h-[700px] w-full flex flex-col gap-[40px] relative ">
             {Array.from({ length: 25 }).map((_, index) => {
