@@ -30,7 +30,8 @@ export default defineSchema({
     notes: v.string(),
     stress: v.array(v.number()),
     distractions: v.array(v.string()),
-  }).searchIndex("search_body", { searchField: "name"}),
+    storageIds: v.optional(v.array(v.string())),
+  }).searchIndex("search_body", { searchField: "name" }),
 
   dailyMetrics: defineTable({
     date: v.string(),

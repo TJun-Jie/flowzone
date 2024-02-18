@@ -20,6 +20,7 @@
     "@mui/material": "^5.15.10",
     "@mui/x-date-pickers": "^5.0.12",
     "@types/react-big-calendar": "^1.8.8",
+    "@xixixao/uploadstuff": "^0.0.5",
     "axios": "^1.6.3",
     "convex": "^1.9.0",
     "date-fns": "2.30.0",

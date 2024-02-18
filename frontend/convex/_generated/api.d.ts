@@ -18,6 +18,7 @@ import type * as actionItems from "../actionItems.js";
 import type * as analytics from "../analytics.js";
 import type * as crons from "../crons.js";
 import type * as dailyMetrics from "../dailyMetrics.js";
+import type * as files from "../files.js";
 import type * as generateActionItems from "../generateActionItems.js";
 import type * as getUpdatedCalendar from "../getUpdatedCalendar.js";
 import type * as http from "../http.js";
@@ -39,6 +40,7 @@ declare const fullApi: ApiFromModules<{
   analytics: typeof analytics;
   crons: typeof crons;
   dailyMetrics: typeof dailyMetrics;
+  files: typeof files;
   generateActionItems: typeof generateActionItems;
   getUpdatedCalendar: typeof getUpdatedCalendar;
   http: typeof http;

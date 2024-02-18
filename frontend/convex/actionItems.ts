@@ -4,7 +4,16 @@ import { mutation, query } from "./_generated/server";
 export const get = query({
   args: {},
   handler: async (ctx) => {
-    return await ctx.db.query("actionItems").collect();
+    const actionItems = await ctx.db.query("actionItems").collect();
+    return Promise.all(
+      actionItems.map(async (actionItem) => {
+        if (actionItem.storageIds && actionItem.storageIds.length > 0) {
+          const url = await ctx.storage.getUrl(actionItem.storageIds[0]);
+          return { ...actionItem, url };
+        }
+        return actionItem;
+      })
+    );
   },
 });
 

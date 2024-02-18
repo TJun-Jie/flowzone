@@ -49,6 +49,13 @@ const initialColumnConfig: ColumnConfig<Doc<"actionItems">>[] = [
     isVisible: true,
     width: "w-[150px]",
   },
+
+  {
+    key: "upload",
+    title: "Upload",
+    isVisible: true,
+    width: "w-[150px]",
+  },
 ];
 
 const SearchTable = ({ searchInput }: { searchInput: string }) => {
@@ -206,6 +213,13 @@ const SearchTable = ({ searchInput }: { searchInput: string }) => {
                 </div>
                 <div className="h-full w-[150px] border-l-[1px] ml-2 pl-2">
                   {renderEditableCell(item.projects, item, "projects")}
+                </div>
+                <div className="h-full w-[150px] border-l-[1px] ml-2 pl-2 flex items-center pr-2">
+                  {item.storageIds && item.storageIds.length > 0 ? (
+                    <img src={item.storageIds[0]} height="300px" width="auto" />
+                  ) : (
+                    <UploadButtonForActionItem id={item._id} />
+                  )}
                 </div>
 
                 {/* Add other cells */}
