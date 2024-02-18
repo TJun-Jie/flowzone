@@ -35,10 +35,9 @@ import type * as zodSchema from "../zodSchema.js";
 declare const fullApi: ApiFromModules<{
   actionItems: typeof actionItems;
   analytics: typeof analytics;
-  generateActionItems: typeof generateActionItems;
-  goals: typeof goals;
   crons: typeof crons;
   dailyMetrics: typeof dailyMetrics;
+  generateActionItems: typeof generateActionItems;
   getUpdatedCalendar: typeof getUpdatedCalendar;
   stresses: typeof stresses;
   zodSchema: typeof zodSchema;
