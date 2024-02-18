@@ -6,13 +6,6 @@ import { zodToJsonSchema } from 'zod-to-json-schema';
 import { action } from "./_generated/server";
 import { v } from "convex/values";
 
-
-// Defining the Together.ai client
-const togetherai = new OpenAI({
-  apiKey: process.env.TOGETHER_API_KEY,
-  baseURL: 'https://api.together.xyz/v1',
-});
-
 // Defining the schema we want our data in.
 
 // const jsonSchema = zodToJsonSchema(actionItemsSchema, 'mySchema');
@@ -43,11 +36,15 @@ export const getInsights = action({
       "losses": [
         {
           "time": "12:00",
-          "description": "Skipped lunch due to back-to-back meetings."
+          "description": "Skipped lunch due to insufficient time available"
         },
         {
           "time": "18:00",
-          "description": "Missed a call from a potential client."
+          "description": "Panic attack due to overstressed"
+        },
+        {
+          "time": "19:00",
+          "description": "Not enough time to exercise"
         }
       ],
       "action_items": [
@@ -91,6 +88,24 @@ export const getInsights = action({
     
     `;
   const system_message = `
+  OUTPUT THE INSIGHTS STRICTLY IN THE FOLLOWING JSON FORMAT: {
+    "insights": {
+      "generalInsights": [
+        {
+          "id": int,
+          "content": string
+        }
+      ],
+      "actionableInsights": [
+        {
+          "id": int,
+          "content": string,
+          "actions": string[]
+        }
+      ]
+    }
+  }
+
   You are a productivity analyst designed to generate behavioural and habitual insights based on my daily metrics, schedule, and reflection.
   You are provided with the following data:
 
@@ -102,25 +117,22 @@ export const getInsights = action({
   Determine and estimate what overarching reasons about my schedule may be good or bad. If the schedule is neutral, mention that too.
   These points should be about my schedule, list out these points.
   `;
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
+    });
+    const response = await openai.chat.completions.create({
+        messages: [
+          {
+            role: "system",
+            content: `${system_message}`
+          },
+          { role: "user", content: daily_metrics },
+        ],
+        temperature: 0.8,
+        model: "gpt-3.5-turbo"})
 
-  const extract = await togetherai.chat.completions.create({
-    messages: [
-      {
-        role: 'system',
-        content:
-        system_message,
-      },
-      {
-        role: 'user',
-        content: daily_metrics,
-      },
-    ],
-    model: "meta-llama/Llama-2-13b-chat-hf"
-    // @ts-ignore – Together.ai supports schema while OpenAI does not
-    // response_format: { type: 'json_object', schema: jsonSchema },
-  });
   
-  const output = extract.choices[0].message.content?.toString();
+  const output = response.choices[0].message.content?.toString();
   console.log(output);
   return output;
 }});

@@ -41,7 +41,8 @@
     "react-icons": "^4.12.0",
     "sass": "^1.70.0",
     "zod": "^3.22.4",
-    "zod-to-json-schema": "^3.22.4"
+    "zod-to-json-schema": "^3.22.4",
+    "zod-to-ts": "^1.2.0"
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.9",

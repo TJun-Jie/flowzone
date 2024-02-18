@@ -38,7 +38,20 @@ export default defineSchema({
     wins: v.array(v.string()), // Change to v.array(v.string())
     losses: v.array(v.string()), // Change to v.array(v.string())
     weight: v.number(),
-    actionItemsCompleted: v.array(v.id("actionItems")),
+    //actionItemsCompleted: v.array(v.id("actionItems")),
     sleepHours: v.float64(),
   }),
+
+  wins: defineTable({
+    dailyMetricId: v.string(),
+    userId: v.string(),
+    win: v.string()
+  }),
+
+  loses: defineTable({
+    dailyMetricId: v.string(),
+    userId: v.string(),
+    loses: v.string()
+  })
+  
 });
