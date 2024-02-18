@@ -9,15 +9,15 @@ const DailyInsightsPage = () => {
   return (
     <div className="p-4">
       <div className="flex">
-        <div style={{width:"25%", height:"100vh",}} >
+        <div style={{ width: "25%", height: "800px" }}>
           <Form />
         </div>
-        <div style={{width:"85%", height:"100vh", overflow:"scroll" }}>
+        <div style={{ width: "85%", height: "800px", overflow: "scroll" }}>
           <DayViewCalendar />
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default DailyInsightsPage;

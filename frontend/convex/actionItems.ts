@@ -24,7 +24,7 @@ export const createActionItem = mutation({
       name: v.string(),
     }),
     notes: v.string(),
-    stress: v.array(v.string()),
+    stress: v.array(v.number()),
     distractions: v.array(v.string()),
   },
   handler: async (ctx, args) => {
@@ -37,7 +37,6 @@ export const createActionItem = mutation({
       projects: args.projects,
       startTime: args.startTime,
       endTime: args.endTime,
-      location: args.location,
       notes: args.notes,
       stress: args.stress,
       distractions: args.distractions,

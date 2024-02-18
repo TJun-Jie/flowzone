@@ -1,20 +1,19 @@
 "use client";
 import { ClerkLoaded, SignInButton, useUser } from "@clerk/nextjs";
 
-import { useEffect } from "react";
-
 import Home from "./home/page";
 
 export default function HomePage() {
   const { user } = useUser();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center -mt-4 from-pink-300 via-purple-300 to-indigo-400">
+    <div className="h-max flex flex-col items-center justify-center -mt-4 from-pink-300 via-purple-300 to-indigo-400 ">
       {user ? (
-        <div>
-          <h1 className="text-2xl font-semibold text-gray-800 ">
+        <div className="h-full w-full flex flex-col ">
+          <h1 className="text-2xl font-semibold text-white flex  w-full justify-center items-center mt-[50px] ">
             Welcome back, {user.firstName}!
           </h1>
+
           <Home />
         </div>
       ) : (
