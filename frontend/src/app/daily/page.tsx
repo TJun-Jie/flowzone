@@ -1,17 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-import { useQuery } from "convex/react";
-import { api } from "../../../convex/_generated/api";
+import DayViewCalendar from '@/app/dayView/combined';
 
 import { Form } from "./components/Form";
 
 const DailyInsightsPage = () => {
   return (
-    <div className="App p-4">
-      <div className="form-container">
-        <div style={{ flex: '0 0 25%' }}>
+    <div className="p-4">
+      <div className="flex">
+        <div style={{width:"25%", height:"100vh",}} >
           <Form />
+        </div>
+        <div style={{width:"85%", height:"100vh", overflow:"scroll" }}>
+          <DayViewCalendar />
         </div>
       </div>
     </div>

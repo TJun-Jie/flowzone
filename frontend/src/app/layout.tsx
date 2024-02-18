@@ -60,9 +60,6 @@ export default function RootLayout({
                     <a href="/daily" className="hover:text-gray-300">
                       Daily
                     </a>
-                    <a href="/weekly" className="hover:text-gray-300">
-                      Weekly
-                    </a>
                     <a href="/profile" className="hover:text-gray-300">
                       Profile
                     </a>

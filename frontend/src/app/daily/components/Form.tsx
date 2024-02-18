@@ -6,7 +6,6 @@ import Insights from './Insights';
 import { useMutation } from 'convex/react';
 import { api } from '../../../../convex/_generated/api';
 
-
 export const Form = () => {
   const [starRating, setStarRating] = useState(0);
   const [inputValue, setInputValue] = useState<string[]>([]);
@@ -73,7 +72,7 @@ export const Form = () => {
   return (
     <>
       {!formSubmitted ? (
-        <div className="form-container flex flex-col items-start justify-start min-h-screen" style={{ width: '25%', marginLeft: '50px', marginTop: '15vh' }}>
+        <div className="form-container flex flex-col items-start justify-start min-h-screen" style={{ width: '75%', marginLeft: '50px' }}>
           <motion.div
             initial="initial"
             animate="in"
