@@ -11,10 +11,9 @@ export default defineSchema({
   stresses: defineTable({
     level: v.number(),
     dateTime: v.string(),
-    actionItemId: v.string(),
+    actionItemId: v.id("actionItems"),
   }),
   actionItems: defineTable({
-    actionItemId: v.string(),
     name: v.string(),
     priority: v.string(), // Assuming ActionItemPriority is an enum or similar, stored as string
     dueDate: v.string(),

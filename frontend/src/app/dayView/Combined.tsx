@@ -12,11 +12,11 @@ import {
   Title,
   Tooltip,
   Legend,
-} from "chart.js";  
+} from "chart.js";
 import { Line } from "react-chartjs-2";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import { useRef, useEffect, useState } from 'react';
-import Switch from '@mui/material/Switch';
+import { useRef, useEffect, useState } from "react";
+import Switch from "@mui/material/Switch";
 
 ChartJS.register(
   CategoryScale,
@@ -33,12 +33,14 @@ export type ActionItemsCalendarViewProps = {
   endTime: string;
   name: string;
   id: Id<"actionItems">;
+  showChart: boolean;
 };
 
 export const ActionItemsCalendarView: React.FC<
   ActionItemsCalendarViewProps
-  > = ({ startTime, endTime, name, id, showChart }) => {
-    const hourHeight = 60; // Height of one hour block in pixels
+> = ({ startTime, endTime, name, id, showChart }) => {
+  console.log("id", id);
+  const hourHeight = 60; // Height of one hour block in pixels
 
   const actionItems = useQuery(api.stresses.getByActionItemId, {
     actionItemId: id,
@@ -60,8 +62,8 @@ export const ActionItemsCalendarView: React.FC<
         display: false,
       },
       title: {
-        display: false,
-        text: "Chart.js Line Chart",
+        display: true,
+        text: `${name} (${formatTime(startTime)} - ${formatTime(endTime)})`,
       },
     },
   };
@@ -78,6 +80,9 @@ export const ActionItemsCalendarView: React.FC<
       },
     ],
   };
+
+  const shouldDisplayChart =
+    showChart && actionItems && actionItems?.length > 0;
   // Function to calculate the height and top margin of an event block
   const calculateEventStyle = (startTime: string, endTime: string) => {
     const startHour = parseInt(startTime.split(":")[0], 10);
@@ -100,25 +105,23 @@ export const ActionItemsCalendarView: React.FC<
     };
   };
 
-  console.log("actionItems", actionItems);
-
   return (
     <div
       className="absolute bg-[#C4BCFD] p-2 mx-3 rounded-md"
       style={calculateEventStyle(formatTime(startTime), formatTime(endTime))}
     >
-      {`${name} (${formatTime(startTime)} - ${formatTime(endTime)})`}
+      {!shouldDisplayChart &&
+        `${name} (${formatTime(startTime)} - ${formatTime(endTime)})`}
 
-      {showChart && (
+      {shouldDisplayChart && (
         <div
           className="line-chart-container"
           style={{
-            width: "1000px",
+            width: "100%",
             height: "100px",
-            position: "absolute",
           }}
         >
-          <Line options={options} data={data} />;
+          <Line options={options} data={data} />
         </div>
       )}
     </div>
@@ -175,14 +178,23 @@ const DayViewCalendar: React.FC<DayViewCalendarProps> = ({
   return (
     <div className="flex h-full w-full flex-col justify-center items-center bg-white overflow-hidden">
       <h1>Day View Calendar</h1>
-      <div style={{ position: 'relative', top: '13px', left: '500px', zIndex: 1000 }}>
+      <div
+        style={{
+          position: "relative",
+          top: "13px",
+          left: "500px",
+          zIndex: 1000,
+        }}
+      >
         <Switch
           checked={showChart}
           onChange={() => setShowChart(!showChart)}
           name="showChart"
-          inputProps={{ 'aria-label': 'secondary checkbox' }}
+          inputProps={{ "aria-label": "secondary checkbox" }}
         />
-        <span style={{ color: 'black' }}>{showChart ? 'Hide Chart' : 'Show Chart'}</span>
+        <span style={{ color: "black" }}>
+          {showChart ? "Hide Chart" : "Show Chart"}
+        </span>
       </div>
       <div className=" flex flex-col w-full h-max px-10">
         <OverlayScrollbarsComponent className="w-full h-full ">
@@ -215,7 +227,7 @@ const DayViewCalendar: React.FC<DayViewCalendarProps> = ({
                 </div>
               );
             })}
-            { actionItems?.map(({ _id, name, startTime, endTime }, index) => {
+            {actionItems?.map(({ _id, name, startTime, endTime }, index) => {
               return (
                 <ActionItemsCalendarView
                   key={_id}

@@ -30,7 +30,6 @@ export const createActionItem = mutation({
   },
   handler: async (ctx, args) => {
     const taskId = await ctx.db.insert("actionItems", {
-      actionItemId: args.actionItemId,
       name: args.name,
       priority: args.priority,
       dueDate: args.dueDate,

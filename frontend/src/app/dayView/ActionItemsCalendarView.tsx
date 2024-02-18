@@ -41,6 +41,7 @@ const ActionItemsCalendarView: React.FC<ActionItemsCalendarViewProps> = ({
   const actionItems = useQuery(api.stresses.getByActionItemId, {
     actionItemId: id,
   });
+
   const formatTime = (isoTime: string) => {
     const date = new Date(isoTime);
     const hours = date.getHours();
@@ -98,8 +99,6 @@ const ActionItemsCalendarView: React.FC<ActionItemsCalendarViewProps> = ({
     };
   };
 
-  console.log("actionItems", actionItems);
-
   return (
     <div
       className="absolute bg-[#C4BCFD] p-2 mx-3 rounded-md"
@@ -116,7 +115,7 @@ const ActionItemsCalendarView: React.FC<ActionItemsCalendarViewProps> = ({
             position: "absolute",
           }}
         >
-          <Line options={options} data={data} />;
+          <Line options={options} data={data} />
         </div>
       )}
     </div>
