@@ -53,7 +53,7 @@ const StarRating = (props: StarRatingProps) => {
           setHover(newHover);
         }}
         emptyIcon={<StarIcon style={{ opacity: 0.55}} fontSize="inherit" />}
-        style={{ fontSize: 50 }} 
+        style={{ fontSize: 40 }} 
       />
       {value !== null && (
         <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
