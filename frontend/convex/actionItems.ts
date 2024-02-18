@@ -8,6 +8,16 @@ export const get = query({
   },
 });
 
+export const search = query({
+  args: { query: v.string() },
+  handler: async (ctx, { query }) => {
+    return await ctx.db
+      .query("actionItems")
+      .withSearchIndex("search_body", (q) => q.search("name", query))
+      .take(10);
+  },
+});
+
 export const createActionItem = mutation({
   args: {
     actionItemId: v.string(),
