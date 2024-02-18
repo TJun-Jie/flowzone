@@ -18,7 +18,7 @@ import { api } from "../../../convex/_generated/api";
 const CreateProjectPage = () => {
   const performMyAction = useAction(api.generateActionItems.generateActionItems);
   const handleClick = () => {
-    performMyAction({ project: "Hello, are you there" });
+    performMyAction({ prompt: "I want to start a fintech startup" });
   };
 
   return (
