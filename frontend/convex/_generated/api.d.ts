@@ -15,7 +15,8 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as analytics from "../analytics.js";
-import type * as goals from "../goals.js";
+import type * as getUpdatedCalendar from "../getUpdatedCalendar.js";
+import type * as zodSchema from "../zodSchema.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -27,7 +28,8 @@ import type * as goals from "../goals.js";
  */
 declare const fullApi: ApiFromModules<{
   analytics: typeof analytics;
-  goals: typeof goals;
+  getUpdatedCalendar: typeof getUpdatedCalendar;
+  zodSchema: typeof zodSchema;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,
