@@ -22,13 +22,13 @@ export default defineSchema({
     projects: v.array(v.string()),
     startTime: v.string(),
     endTime: v.string(),
-    location: v.object({
-      latitude: v.number(),
-      longitude: v.number(),
-      name: v.string(),
-    }),
+    // location: v.object({
+    //   latitude: v.number(),
+    //   longitude: v.number(),
+    //   name: v.string(),
+    // }),
     notes: v.string(),
-    stress: v.array(v.string()),
+    stress: v.array(v.number()),
     distractions: v.array(v.string()),
   }),
 
