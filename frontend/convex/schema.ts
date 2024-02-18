@@ -33,12 +33,12 @@ export default defineSchema({
   }),
 
   dailyMetrics: defineTable({
-    date: v.number(),
+    date: v.float64(),
     ratingOfDay: v.string(), // Assuming RatingOfDay is an enum or similar, stored as string
     wins: v.array(v.id("wins")),
     losses: v.array(v.id("losses")),
     weight: v.number(),
     actionItemsCompleted: v.array(v.id("actionItems")),
-    sleepHours: v.number(),
+    sleepHours: v.float64(),
   }),
 });

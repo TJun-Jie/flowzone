@@ -1,55 +1,51 @@
-import React, { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import exp from 'constants';
+  import React, { useState } from 'react';
+  import Box from '@mui/material/Box';
+  import TextField from '@mui/material/TextField';
 
-interface BulletPointsTextAreaProps {
-  label: string;
-  onTextChange: (text: string) => void;
-}
+  interface BulletPointsTextAreaProps {
+    label: string;
+    value: string;
+    onTextChange: (text: string) => void;
+  }
 
-const BulletPointsTextArea: React.FC<BulletPointsTextAreaProps> = ({ label, onTextChange }) => {
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // Ensuring bullet points are correctly applied to each new line
-    let lines = event.target.value.split('\n');
-    let bulletPointText = lines.map(line => line.trim().startsWith('•') ? line : `• ${line.trim()}`).join('\n');
-    onTextChange(bulletPointText);
+  const BulletPointsTextArea: React.FC<BulletPointsTextAreaProps> = ({ label, value, onTextChange }) => {
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault(); // Prevent the default action to avoid the double line break
+        const newValue = `${value.trimEnd()}\n• `;
+        onTextChange(newValue);
+      }
+    };
+
+    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      onTextChange(event.target.value);
+    };
+
+    return (
+      <TextField
+        label={label}
+        multiline
+        minRows={5}
+        variant="outlined"
+        fullWidth
+        value={value}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        sx={{ margin: 1, width: 'calc(50% - 8px)' }} // Adjusted width for side by side layout
+      />
+    );
   };
 
-  return (
-    <TextField
-      label={label}
-      multiline
-      minRows={5}
-      variant="outlined"
-      fullWidth
-      onChange={handleChange}
-      sx={{ margin: 1, maxWidth: 'calc(47%)' }} // Adjust the maxWidth to ensure side by side layout
-    />
-  );
-};
+  const InputField = ({ onValueChange }: { onValueChange: (value: string[]) => void }) => {
+    const [wins, setWins] = useState('• ');
+    const [losses, setLosses] = useState('• ');
 
-interface InputFieldProps {
-  onValueChange: (text: string[]) => void;
-}
-
-const InputField = (props: InputFieldProps) => {
-  const [wins, setWins] = useState('');
-  const [losses, setLosses] = useState('');
-
-  useEffect(() => {
-    props.onValueChange([wins, losses]);
-  }, [wins, losses]);
-
-  return (
-    <Box display="flex" flexDirection="column" alignItems="center" sx={{ width: '100%' }}>
+    return (
       <Box display="flex" justifyContent="space-between" sx={{ width: '100%', maxWidth: '800px', flexWrap: 'wrap' }}>
-        <BulletPointsTextArea label="Wins" onTextChange={setWins} />
-        <BulletPointsTextArea label="Losses" onTextChange={setLosses} />
+        <BulletPointsTextArea label="Wins" value={wins} onTextChange={setWins} />
+        <BulletPointsTextArea label="Losses" value={losses} onTextChange={setLosses} />
       </Box>
-    </Box>
-  );
-}
+    );
+  }
 
-export default InputField;
+  export default InputField;
