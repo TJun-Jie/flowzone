@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import StarRating  from './StarRating';
 import InputField from './InputField';
 import Insights from './Insights';
+import { useMutation } from 'convex/react';
+import { api } from '../../../../convex/_generated/api';
+
 
 export const Form = () => {
   const [starRating, setStarRating] = useState(0);
   const [inputValue, setInputValue] = useState<string[]>([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const createUserInput = useMutation(api.dailyMetrics.createDailyMetrics);
+  const [terraData, setTerraData] = useState(null);
 
   const handleValueChange = (value: string[]) => {
     setInputValue(value);
@@ -16,7 +21,15 @@ export const Form = () => {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log('Form submitted with:', starRating, inputValue);
-    // Add code to send data to the database here
+    createUserInput({
+      date: new Date().toISOString(),
+      ratingOfDay: starRating,
+      wins: inputValue[0].split('\n').filter((win) => win !== ''),
+      losses: inputValue[1].split('\n').filter((loss) => loss !== ''),
+      weight: 160,
+      actionItemsCompleted: [],
+      sleepHours: terraData?.
+    });
     setFormSubmitted(true);
   }
 
@@ -50,24 +63,39 @@ export const Form = () => {
     duration: 0.5
   };
 
+  useEffect(() => {
+    fetch('https://2a82-171-66-12-5.ngrok-free.app/consumeTerraWebhook')
+      .then(response => response.json())
+      .then(data => setTerraData(data))
+      .catch(error => console.error('Error:', error));
+  }, []);
+  
   return (
-    <div className="form-container flex flex-col items-center justify-center min-h-screen">
-      {!formSubmitted ? (
+    <div className="form-container flex flex-col items-start justify-start min-h-screen" style={{ width: '25%', marginLeft: '50px', marginTop: '15vh' }}>
+    {!formSubmitted ? (
         <motion.div
           initial="initial"
           animate="in"
           exit="out"
           variants={formVariants}
           transition={pageTransition}
+          className="mt-4 border border-black p-4 rounded-lg" 
+          style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }} 
         >
-          <StarRating setRating={setStarRating} />
-          <InputField onValueChange={handleValueChange} />
-          <button
-            onClick={handleSubmit}
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-300"
-          >
-            Submit
-          </button>
+          <div className="border-b border-black pb-4 flex justify-center"> 
+            <StarRating setRating={setStarRating} />
+          </div>
+          <div className="border-b border-black py-4"> 
+            <InputField onValueChange={handleValueChange} />
+          </div>
+          <div className="pt-4 flex justify-center"> 
+            <button
+              onClick={handleSubmit}
+              className="px-2 mx-4 bg-blue-500 text-white font-semibold rounded hover:bg-blue-500 transition duration-300" 
+            >
+              Submit
+            </button>
+          </div>
         </motion.div>
       ) : (
         <motion.div
@@ -75,6 +103,7 @@ export const Form = () => {
           animate="in"
           variants={insightsVariants}
           transition={pageTransition}
+          className="flex justify-center" // Align the wins and losses horizontally and center them
         >
           <Insights />
         </motion.div>

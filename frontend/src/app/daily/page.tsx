@@ -8,13 +8,11 @@ import { Form } from "./components/Form";
 
 const DailyInsightsPage = () => {
   return (
-    <div className="App p-4 bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400">
+    <div className="App p-4">
       <div className="form-container">
-        <Form />
-      </div>
-      {/* Placeholder for insights section */}
-      <div id="insights" className="mt-10">
-        <h2 className="text-xl font-bold">Insights</h2>
+        <div style={{ flex: '0 0 25%' }}>
+          <Form />
+        </div>
       </div>
     </div>
   );

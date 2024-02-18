@@ -15,6 +15,7 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as analytics from "../analytics.js";
+import type * as dailyMetrics from "../dailyMetrics.js";
 import type * as goals from "../goals.js";
 
 /**
@@ -27,6 +28,7 @@ import type * as goals from "../goals.js";
  */
 declare const fullApi: ApiFromModules<{
   analytics: typeof analytics;
+  dailyMetrics: typeof dailyMetrics;
   goals: typeof goals;
 }>;
 export declare const api: FilterApi<
