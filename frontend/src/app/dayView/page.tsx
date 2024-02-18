@@ -2,6 +2,7 @@
 import { useQuery } from "convex/react";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import { api } from "../../../convex/_generated/api";
+import ActionItemsCalendarView from "./ActionItemsCalendarView";
 
 export type DayViewCalendarProps = {
   events?: {
@@ -41,31 +42,8 @@ const sampleEvents = [
 const DayViewCalendar: React.FC<DayViewCalendarProps> = ({
   events = sampleEvents,
 }) => {
-  const hourHeight = 60; // Height of one hour block in pixels
   const actionItems = useQuery(api.actionItems.get);
-  console.log(actionItems);
 
-  // Function to calculate the height and top margin of an event block
-  const calculateEventStyle = (startTime: string, endTime: string) => {
-    const startHour = parseInt(startTime.split(":")[0], 10);
-    const startMinutes = parseInt(startTime.split(":")[1], 10);
-    const endHour = parseInt(endTime.split(":")[0], 10);
-    const endMinutes = parseInt(endTime.split(":")[1], 10);
-
-    const startPosition =
-      startHour * hourHeight + (startMinutes / 60) * hourHeight;
-    const endPosition = endHour * hourHeight + (endMinutes / 60) * hourHeight;
-    const height = endPosition - startPosition;
-
-    return {
-      marginTop: `${startPosition + 10}px`,
-      marginLeft: "120px",
-      height: `${height}px`,
-      width: "87%",
-      display: "flex",
-      alignItems: "center",
-    };
-  };
   return (
     <div className="flex w-screen h-screen flex-col justify-center items-center bg-white overflow-hidden">
       <h1>Day View Calendar</h1>
@@ -101,29 +79,14 @@ const DayViewCalendar: React.FC<DayViewCalendarProps> = ({
               );
             })}
             {actionItems?.map(({ _id, name, startTime, endTime }, index) => {
-              const formatTime = (isoTime: string) => {
-                const date = new Date(isoTime);
-                const hours = date.getHours();
-                const minutes = date.getMinutes();
-                return `${hours < 10 ? `0${hours}` : hours}:${
-                  minutes < 10 ? `0${minutes}` : minutes
-                }`;
-              };
-              console.log(formatTime(startTime), formatTime(endTime));
-
               return (
-                <div
-                  key={index}
-                  className="absolute bg-[#C4BCFD] p-2 mx-3 rounded-md"
-                  style={calculateEventStyle(
-                    formatTime(startTime),
-                    formatTime(endTime)
-                  )}
-                >
-                  {`${name} (${formatTime(startTime)} - ${formatTime(
-                    endTime
-                  )})`}
-                </div>
+                <ActionItemsCalendarView
+                  key={_id}
+                  id={_id}
+                  name={name}
+                  startTime={startTime}
+                  endTime={endTime}
+                />
               );
             })}
           </div>

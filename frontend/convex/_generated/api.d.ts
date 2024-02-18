@@ -17,6 +17,7 @@ import type {
 import type * as actionItems from "../actionItems.js";
 import type * as analytics from "../analytics.js";
 import type * as getUpdatedCalendar from "../getUpdatedCalendar.js";
+import type * as stresses from "../stresses.js";
 import type * as zodSchema from "../zodSchema.js";
 
 /**
@@ -31,6 +32,7 @@ declare const fullApi: ApiFromModules<{
   actionItems: typeof actionItems;
   analytics: typeof analytics;
   getUpdatedCalendar: typeof getUpdatedCalendar;
+  stresses: typeof stresses;
   zodSchema: typeof zodSchema;
 }>;
 export declare const api: FilterApi<

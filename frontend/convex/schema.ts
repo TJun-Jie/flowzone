@@ -8,7 +8,7 @@ export default defineSchema({
     actionItemId: v.id("actionItems"),
   }),
 
-  stress: defineTable({
+  stresses: defineTable({
     level: v.number(),
     dateTime: v.string(),
     actionItemId: v.id("actionItems"),
