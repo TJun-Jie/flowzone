@@ -14,20 +14,7 @@ const togetherai = new OpenAI({
 });
 
 // Defining the schema we want our data in.
-// const actionItemsSchema = z.object({
-//   name: z.string(),
-//   priority: z.object().optional(),
-//   dueDate: z.date(),
-//   status: z.enum(),
-//   isDone: z.boolean(),
-//   projects: z.array(z.string()),
-//   startTime: z.string().datetime(),
-//   endTime: z.string().datetime(),
-//   location : Location,
-//   notes: z.string();
-//   stress: { stressIndex number , time: datetime } [] ,
-//   distractions: z.array(z.string())
-// })
+
 // const jsonSchema = zodToJsonSchema(actionItemsSchema, 'mySchema');
 
 
@@ -128,7 +115,7 @@ export const getInsights = action({
         content: daily_metrics,
       },
     ],
-    model: "meta-llama/Llama-2-13b-chat-hf",
+    model: "meta-llama/Llama-2-13b-chat-hf"
     // @ts-ignore – Together.ai supports schema while OpenAI does not
     // response_format: { type: 'json_object', schema: jsonSchema },
   });
