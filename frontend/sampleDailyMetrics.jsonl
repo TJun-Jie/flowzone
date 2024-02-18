@@ -1,0 +1,3 @@
+{"date": 1633027200000, "ratingOfDay": 2, "wins": ["Win 1", "Win 2"], "losses": ["Loss 1", "Loss 2"], "weight": 150, "actionItemsCompleted": ["1"], "sleepHours": 8}
+{"date": 1633113600000, "ratingOfDay": 3.5, "wins": ["Win 3", "Win 4"], "losses": ["Loss 3", "Loss 4"], "weight": 152, "actionItemsCompleted": ["2"], "sleepHours": 7}
+{"date": 1633200000000, "ratingOfDay": 4.5, "wins": ["Win 5", "Win 6"], "losses": ["Loss 5", "Loss 6"], "weight": 154, "actionItemsCompleted": ["3"], "sleepHours": 6}
