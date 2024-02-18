@@ -19,14 +19,15 @@ const mockInsights: any = [
 
 const mockActionableInsights: any = [
   {
+    actionItemId: "a1",
     name: "Attend Time Management Workshop",
     priority: "High",
     dueDate: "2024-03-01",
     status: "Scheduled",
     isDone: false,
     projects: ["Personal Development"],
-    startTime: "09:00",
-    endTime: "12:00",
+    startTime: "2024-02-18T09:00:00-08:00",
+    endTime: "2024-02-18T12:00:00-08:00",
     location: {
       latitude: 40.7128,
       longitude: -74.006,
@@ -34,17 +35,19 @@ const mockActionableInsights: any = [
     },
     notes:
       "Participating in a time management workshop to better allocate time for meals, exercise, and relaxation, ensuring a balanced approach to daily activities.",
+    stress: [2,2,2,1,1,1],
     distractions: ["unnecessary_meetings", "prolonged_breaks"],
   },
   {
+    actionItemId: "b2",
     name: "Complete Advanced Project Management Course",
     priority: "Medium",
     dueDate: "2024-04-15",
     status: "Not Started",
     isDone: false,
     projects: ["Skill Upgradation"],
-    startTime: "18:00",
-    endTime: "20:00",
+    startTime: "2024-02-18T18:00:00-08:00",
+    endTime: "2024-02-18T20:00:00-08:00",
     location: {
       latitude: 37.7749,
       longitude: -122.4194,
@@ -52,17 +55,19 @@ const mockActionableInsights: any = [
     },
     notes:
       "Enrolling in an advanced project management course to improve planning, execution, and delivery of projects. Goal is to consistently meet or exceed project timelines with efficient resource management.",
+    stress: [2,2,2,1,1,1],
     distractions: ["inefficient_workflow", "lack_of_resources"],
   },
   {
+    actionItemId: "c3",
     name: "Establish Regular Morning Exercise Routine Before Work",
     priority: "High",
     dueDate: "2024-02-28",
     status: "InProgress",
     isDone: false,
     projects: ["Health Improvement"],
-    startTime: "06:30",
-    endTime: "07:30",
+    startTime: "2024-02-18T08:00:00-08:00",
+    endTime: "2024-02-18T08:30:00-08:00",
     location: {
       latitude: 34.0522,
       longitude: -118.2437,
@@ -70,6 +75,7 @@ const mockActionableInsights: any = [
     },
     notes:
       "Committing to a daily morning exercise routine to enhance physical health, reduce stress, and increase energy levels throughout the day. This routine includes cardio, strength training, and flexibility exercises.",
+    stress: [2,2,2,1,1,1],
     distractions: ["morning_lethargy", "postponement"],
   },
 ];
