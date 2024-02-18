@@ -1,9 +1,11 @@
+'use client'
+
 import Insights from "./Insights";
 import HealthChart from "./HealthChart";
 
 const InsightsPage = () => {
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
       <div className="w-1/2 px-4">
         <HealthChart />
       </div>
@@ -13,3 +15,5 @@ const InsightsPage = () => {
     </div>
   );
 };
+
+export default InsightsPage;

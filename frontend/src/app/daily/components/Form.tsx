@@ -28,7 +28,7 @@ export const Form = () => {
       losses: inputValue[1].split('\n').filter((loss) => loss !== ''),
       weight: 160,
       actionItemsCompleted: [],
-      sleepHours: terraData?.
+      sleepHours: 7
     });
     setFormSubmitted(true);
   }
@@ -71,43 +71,48 @@ export const Form = () => {
   }, []);
   
   return (
-    <div className="form-container flex flex-col items-start justify-start min-h-screen" style={{ width: '25%', marginLeft: '50px', marginTop: '15vh' }}>
-    {!formSubmitted ? (
-        <motion.div
-          initial="initial"
-          animate="in"
-          exit="out"
-          variants={formVariants}
-          transition={pageTransition}
-          className="mt-4 border border-black p-4 rounded-lg" 
-          style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }} 
-        >
-          <div className="border-b border-black pb-4 flex justify-center"> 
-            <StarRating setRating={setStarRating} />
-          </div>
-          <div className="border-b border-black py-4"> 
-            <InputField onValueChange={handleValueChange} />
-          </div>
-          <div className="pt-4 flex justify-center"> 
-            <button
-              onClick={handleSubmit}
-              className="px-2 mx-4 bg-blue-500 text-white font-semibold rounded hover:bg-blue-500 transition duration-300" 
-            >
-              Submit
-            </button>
-          </div>
-        </motion.div>
-      ) : (
-        <motion.div
-          initial="initial"
-          animate="in"
-          variants={insightsVariants}
-          transition={pageTransition}
-          className="flex justify-center" // Align the wins and losses horizontally and center them
-        >
-          <Insights />
-        </motion.div>
+    <>
+      {!formSubmitted ? (
+        <div className="form-container flex flex-col items-start justify-start min-h-screen" style={{ width: '25%', marginLeft: '50px', marginTop: '15vh' }}>
+          <motion.div
+            initial="initial"
+            animate="in"
+            exit="out"
+            variants={formVariants}
+            transition={pageTransition}
+            className="mt-4 border border-black p-4 rounded-lg bg-white bg-opacity-90"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }} 
+          >
+            <div className="border-b border-black pb-4 flex justify-center"> 
+              <StarRating setRating={setStarRating} />
+            </div>
+            <div className="border-b border-black py-4"> 
+              <InputField onValueChange={handleValueChange} />
+            </div>
+            <div className="pt-4 flex justify-center"> 
+              <button
+                onClick={handleSubmit}
+                className="px-2 mx-4 bg-blue-500 text-white font-semibold rounded hover:bg-blue-500 transition duration-300" 
+              >
+                Submit
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      ) : null}
+      {formSubmitted && (
+        <div className="insights-container" style={{ width: '50%', marginLeft: '0', marginTop: '0' }}>
+          <motion.div
+            initial="initial"
+            animate="in"
+            variants={insightsVariants}
+            transition={pageTransition}
+            className="flex justify-center" // Align the wins and losses horizontally and center them
+          >
+            <Insights />
+          </motion.div>
+        </div>
       )}
-    </div>
+    </>
   );
 };
