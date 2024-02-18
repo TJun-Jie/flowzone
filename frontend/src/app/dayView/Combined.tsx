@@ -178,7 +178,7 @@ const DayViewCalendar: React.FC<DayViewCalendarProps> = ({
 
   return (
     <div className="flex h-full w-full flex-col justify-center items-center bg-white overflow-hidden">
-      <h1>Day View Calendar</h1>
+      <h1 className="text-black">Day View Calendar</h1>
       <div className=" flex flex-col w-full h-max px-10">
         <OverlayScrollbarsComponent className="w-full h-full ">
           <div className="h-[700px] w-full flex flex-col gap-[40px] relative ">
