@@ -145,6 +145,8 @@ const GoalsPage: React.FC<GoalsPageProps> = () => {
     setWeeklyCards(newCards);
   };
 
+  const [showActionItems, setShowActionItems] = useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400">
       <div className="text-center pt-10">
@@ -173,7 +175,10 @@ const GoalsPage: React.FC<GoalsPageProps> = () => {
             <div className="flex-grow border-t border-gray-400"></div>
           </div>
 
-          <div className=" w-max h-max">
+          <div
+            className="w-max h-max"
+            style={{ display: showActionItems ? "block" : "none" }}
+          >
             <MainComponent />
           </div>
           {isLoading ? (
@@ -184,15 +189,9 @@ const GoalsPage: React.FC<GoalsPageProps> = () => {
           ) : (
             <button
               className="px-6 py-2 mt-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300"
-              onClick={() => {
-                // if (weeklyCards.length > 0) {
-                //   createPlan();
-                // } else {
-                //   generateOutline();
-                // }
-              }}
+              onClick={() => setShowActionItems(!showActionItems)}
             >
-              {weeklyCards.length > 0 ? "Create Plan" : "Generate Outline"}
+              {showActionItems ? "Generate Outline" : "Generate Outline"}
             </button>
           )}
         </div>
