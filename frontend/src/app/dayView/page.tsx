@@ -1,3 +1,3 @@
-import DayViewCalendar from "./combined";
+import DayViewCalendar from "../dayView/Combined";
 
 export default DayViewCalendar;

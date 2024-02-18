@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import DayViewCalendar from '@/app/dayView/combined';
+import DayViewCalendar from "../dayView/Combined";
 
 import { Form } from "./components/Form";
 
