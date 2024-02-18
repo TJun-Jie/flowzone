@@ -14,9 +14,15 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as actionItems from "../actionItems.js";
 import type * as analytics from "../analytics.js";
 import type * as generateActionItems from "../generateActionItems.js";
 import type * as goals from "../goals.js";
+import type * as crons from "../crons.js";
+import type * as dailyMetrics from "../dailyMetrics.js";
+import type * as getUpdatedCalendar from "../getUpdatedCalendar.js";
+import type * as stresses from "../stresses.js";
+import type * as zodSchema from "../zodSchema.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -27,9 +33,15 @@ import type * as goals from "../goals.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  actionItems: typeof actionItems;
   analytics: typeof analytics;
   generateActionItems: typeof generateActionItems;
   goals: typeof goals;
+  crons: typeof crons;
+  dailyMetrics: typeof dailyMetrics;
+  getUpdatedCalendar: typeof getUpdatedCalendar;
+  stresses: typeof stresses;
+  zodSchema: typeof zodSchema;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

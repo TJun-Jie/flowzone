@@ -12,6 +12,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import React, { useState } from "react";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import MainComponent from "../actionitem/components/mainComponent";
 // import { useUser } from "@clerk/nextjs";
 
 export type GoalsPageProps = {};
@@ -26,7 +27,9 @@ export type Card = {
 
 const GoalsPage: React.FC<GoalsPageProps> = () => {
   const [goalInput, setGoalInput] = React.useState("");
-  const goals = useQuery(api.goals.get);
+  // const goals = useQuery(api.goals.get);
+
+  const actionItems = useQuery(api.actionItems.get);
 
   //   const { user } = useUser();
 
@@ -150,7 +153,7 @@ const GoalsPage: React.FC<GoalsPageProps> = () => {
           What would you like to accomplish today
         </p>
 
-        <div className="max-w-xl mx-auto p-8 bg-white rounded-lg shadow-lg">
+        <div className="w-[800px] mx-auto p-8 bg-white rounded-lg shadow-lg">
           <div className="flex flex-col text-left">
             <div className="block mb-2 ml-1 text-sm text-left w-full text-gray-900 dark:text-gray-300 self-center font-bold ">
               Prompt
@@ -164,122 +167,15 @@ const GoalsPage: React.FC<GoalsPageProps> = () => {
             />
           </div>
 
-          {onceOffCards.length > 0 && (
-            <div className="mt-6 text-black">
-              <div className="relative flex pb-5 items-center">
-                <div className="flex-grow border-t border-gray-400"></div>
-                <span className="flex-shrink mx-4 text-gray-400">
-                  Immediate Actions
-                </span>
-                <div className="flex-grow border-t border-gray-400"></div>
-              </div>
-              {onceOffCards.map((card) => (
-                <Tooltip title={card.rationale} arrow key={card.id}>
-                  <div className="flex items-center mb-2 text-black">
-                    <input
-                      type="text"
-                      value={card.title}
-                      onChange={(e) =>
-                        handleOnceOffCardChangeTitle(card.id, e.target.value)
-                      }
-                      className="w-full p-2 border rounded shadow-sm"
-                      placeholder="Type card title..."
-                    />
-                  </div>
-                </Tooltip>
-              ))}
-            </div>
-          )}
           <div className="relative flex py-5 items-center">
             <div className="flex-grow border-t border-gray-400"></div>
-            <span className="flex-shrink mx-4 text-gray-400">
-              Weekly Schedule
-            </span>
+            <span className="flex-shrink mx-4 text-gray-400">Action Items</span>
             <div className="flex-grow border-t border-gray-400"></div>
           </div>
-          {weeklyCards.length > 0 && (
-            <div className=" text-black">
-              {weeklyCards.map((card) => (
-                <div
-                  key={card.id}
-                  className="flex items-center mb-2 text-black w-full"
-                >
-                  <Accordion
-                    expanded={card.isExpanded}
-                    onChange={() => {
-                      const newCards = weeklyCards.map((c) => {
-                        if (c.id === card.id) {
-                          return { ...c, isExpanded: !c.isExpanded };
-                        }
-                        return c;
-                      });
-                      setWeeklyCards(newCards);
-                    }}
-                  >
-                    <AccordionSummary
-                      expandIcon={<KeyboardArrowDownIcon />}
-                      aria-controls="panel1-content"
-                      id="panel1-header"
-                    >
-                      {card.isExpanded ? (
-                        <div className="w-full flex">
-                          <div className="flex flex-col w-[80%] mr-3">
-                            <input
-                              type="text"
-                              value={card.title}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                              }}
-                              onChange={(e) => {
-                                handleWeeklyCardChangeTitle(
-                                  card.id,
-                                  e.target.value
-                                );
-                              }}
-                              className="w-full p-2 border rounded  shadow-sm"
-                              placeholder="Type card title..."
-                            />
-                          </div>
-                          <div className="flex w-[20%] h-full gap-2 items-center justify-center">
-                            <input
-                              type="number"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                              }}
-                              value={card.hours}
-                              onChange={(e) => {
-                                e.stopPropagation();
-                                handleWeeklyCardChangeHours(
-                                  card.id,
-                                  e.target.value
-                                );
-                              }}
-                              className="w-full p-2 border rounded shadow-sm "
-                              placeholder="Type card title..."
-                            />
-                            <div className="h-full flex justify-center items-center ">
-                              hrs
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="w-full flex items-center justify-between">
-                          <div className="text-md   mr-3">{card.title}</div>
-                          <div className="flex items-center">
-                            <span className="text-md ">{card.hours}</span>
-                            <span className="ml-1">hrs</span>
-                          </div>
-                        </div>
-                      )}
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography>{card.rationale}</Typography>
-                    </AccordionDetails>
-                  </Accordion>
-                </div>
-              ))}
-            </div>
-          )}
+
+          <div className=" w-max h-max">
+            <MainComponent />
+          </div>
           {isLoading ? (
             <div className="w-[90%] mx-auto my-6 flex flex-col">
               <div className="text-black mb-2">Generating your plan</div>
@@ -289,11 +185,11 @@ const GoalsPage: React.FC<GoalsPageProps> = () => {
             <button
               className="px-6 py-2 mt-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300"
               onClick={() => {
-                if (weeklyCards.length > 0) {
-                  createPlan();
-                } else {
-                  generateOutline();
-                }
+                // if (weeklyCards.length > 0) {
+                //   createPlan();
+                // } else {
+                //   generateOutline();
+                // }
               }}
             >
               {weeklyCards.length > 0 ? "Create Plan" : "Generate Outline"}
