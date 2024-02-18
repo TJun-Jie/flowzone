@@ -2,6 +2,7 @@
 import DayViewCalendar from "../dayView/Combined";
 import ActionItemPage from "../actionitem/page";
 import Insights from "../daily/components/Insights";
+import SleepGraph from "@/components/SleepGraph";
 
 const Home = () => {
   return (
@@ -18,6 +19,9 @@ const Home = () => {
           className="mx-auto "
         >
           <DayViewCalendar />
+        </div>
+        <div className="w-[70%] mx-auto mt-10">
+          <SleepGraph />
         </div>
         <div className="w-[70%] mx-auto mt-10">
           <div className="flex justify-center w-full align-center text-[20px] font-medium  mb-2">

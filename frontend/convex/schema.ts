@@ -46,13 +46,22 @@ export default defineSchema({
   wins: defineTable({
     dailyMetricId: v.string(),
     userId: v.string(),
-    win: v.string()
+    win: v.string(),
   }),
 
   loses: defineTable({
     dailyMetricId: v.string(),
     userId: v.string(),
-    loses: v.string()
-  })
-  
+    loses: v.string(),
+  }),
+
+  stressScores: defineTable({
+    hour: v.number(),
+    score: v.number(),
+  }),
+
+  sleepScores: defineTable({
+    hour: v.number(),
+    score: v.number(),
+  }),
 });

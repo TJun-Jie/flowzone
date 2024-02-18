@@ -20,6 +20,9 @@ import type * as crons from "../crons.js";
 import type * as dailyMetrics from "../dailyMetrics.js";
 import type * as generateActionItems from "../generateActionItems.js";
 import type * as getUpdatedCalendar from "../getUpdatedCalendar.js";
+import type * as http from "../http.js";
+import type * as sleepScores from "../sleepScores.js";
+import type * as stressScores from "../stressScores.js";
 import type * as stresses from "../stresses.js";
 import type * as zodSchema from "../zodSchema.js";
 
@@ -38,6 +41,9 @@ declare const fullApi: ApiFromModules<{
   dailyMetrics: typeof dailyMetrics;
   generateActionItems: typeof generateActionItems;
   getUpdatedCalendar: typeof getUpdatedCalendar;
+  http: typeof http;
+  sleepScores: typeof sleepScores;
+  stressScores: typeof stressScores;
   stresses: typeof stresses;
   zodSchema: typeof zodSchema;
 }>;
